@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<html lang="en">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		<h1>Board List Page
+		 	<span>
+                <a th:href="@{/board/register}">
+                    <button type="button" class="btn btn-ountline-primary">게시물 등록</button>
+                </a>
+            </span>
+		</h1>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">제목</th>
+					<th scope="col">작성자</th>
+					<th scope="col">등록일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="dto : ${list}">
+					<td>[[${dto.no}]]</td>
+					<th scope="row">
+						<a th:href="@{/board/read(no = ${dto.no})}">[[${dto.title}]]</a>
+					</th>
+					<td>[[${dto.writer}]]</td>
+					<td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd hh:mm:ss')}]]</td>
+				</tr>
+			</tbody>
+		</table>
+		<script th:inline="javascript">
+
+			$(document).ready(function(){
+				let msg = [[${msg}]]
+				if(msg != null){
+					alert(msg+"번 글이 등록되었습니다.");
+				}
+			});
+		</script>
+
+	</th:block>
+</th:block>
+</html>
