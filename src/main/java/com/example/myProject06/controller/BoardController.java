@@ -59,9 +59,15 @@ public class BoardController {
     @PostMapping("/modify")
     public String modifyPost(BoardDTO boardDTO, RedirectAttributes redirectAttributes){
         boardService.modify(boardDTO);
-        redirectAttributes.addAttribute("no",boardDTO.getNo());
+        redirectAttributes.addAttribute("no",boardDTO.getNo()); // 리다이렉트시 별도의 파라미터가 필요할때.
         return "redirect:/board/read";
 
+    }
+
+    @PostMapping("/remove")
+    public String remove(int no){
+        boardService.remove(no);
+        return "redirect:/board/list";
     }
 
 }

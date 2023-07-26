@@ -43,6 +43,7 @@
 
         <script th:inline="javascript">
             let form = $("form");
+
             $(".modifyBtn").click(
                 function(){
                     if(!confirm("수정하시겠습니까?")){
@@ -57,11 +58,18 @@
 
             $(".listBtn").click(function(){
                     form
-                        .after("action", "/board/list")
-                        .after("method", "get")
+                        .attr("action", "/board/list")
+                        .attr("method", "get")
                         .submit();
                 }
             );
+
+            $(".removeBtn").click(function(){
+                form
+                    .attr("action","/board/remove")
+                    .attr("method"."post")
+                    .submit();
+            });
         </script>
     </th:block>
 </th:block>

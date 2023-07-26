@@ -15,7 +15,9 @@ public interface BoardService {
     List<BoardDTO> getList();
 
     void modify(BoardDTO boardDTO);
-    
+
+    void remove(int no);
+
     //dto 엔티티를 변환하는 메서드
     default Board dtoToEntity(BoardDTO boardDTO){
         Board entity = Board.builder()

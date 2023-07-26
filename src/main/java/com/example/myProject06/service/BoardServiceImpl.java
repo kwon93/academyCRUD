@@ -40,6 +40,11 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public void remove(int no) {
+
+    }
+
+    @Override
     public Board dtoToEntity(BoardDTO boardDTO) {
         return BoardService.super.dtoToEntity(boardDTO);
         //defualt메서드 구현에서  defualt 메서드를 호출해서 구현. (재귀함수 -> 빌더가 return되면 끝남.)

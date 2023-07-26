@@ -129,11 +129,11 @@ public class BoardRepositoryTest {
         boardService.modify(mod1);
 
     }
-    
 
-
-
-
-
+    @Test
+    @DisplayName("삭제기능 정상 동작 확인하기")
+    void quiz10(){
+        boardService.remove(5);
+    }
 
 }

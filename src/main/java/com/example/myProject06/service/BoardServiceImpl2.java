@@ -61,6 +61,13 @@ public class BoardServiceImpl2 implements BoardService {
         }
     }
 
+    @Override
+    public void remove(int no) {
+
+        boardRepository.deleteById(no);
+
+    }
+
 
     @Override
     public Board dtoToEntity(BoardDTO boardDTO) {
