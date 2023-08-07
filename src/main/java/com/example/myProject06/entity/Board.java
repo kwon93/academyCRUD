@@ -15,6 +15,7 @@ public class Board extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "board_no")
     private int no;
 
     @Column(length = 100, nullable = false)

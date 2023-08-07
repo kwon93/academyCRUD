@@ -5,12 +5,17 @@ import com.example.myProject06.entity.Board;
 import com.example.myProject06.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service // 비지니스 로직 역할을 처리하는 역할을 중시
 @RequiredArgsConstructor
@@ -39,15 +44,20 @@ public class BoardServiceImpl2 implements BoardService {
     }
 
     @Override
-    public List<BoardDTO> getList() {
-        List<Board> result = boardRepository.findAll();
-        List<BoardDTO> list = new ArrayList<>();
+    public Page<BoardDTO> getList(int page) {
+//        List<Board> result = boardRepository.findAll();
+//        List<BoardDTO> list = new ArrayList<>();
+//
+//        list = result.stream()
+//                .map(entity -> entityToDto(entity))
+//                .collect(Collectors.toList());
+//
+//        return list;
 
-        list = result.stream()
-                .map(entity -> entityToDto(entity))
-                .collect(Collectors.toList());
-
-        return list;
+        int pageNum = (page == 0)? 0 : page - 1;
+        Pageable pageAble = PageRequest.of(pageNum, 10, Sort.by("no").descending());
+        Page<Board> entityPage = boardRepository.findAll(pageAble);
+        return entityPage.map(this::entityToDto);
     }
 
     @Override

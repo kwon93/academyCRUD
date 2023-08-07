@@ -2,6 +2,7 @@ package com.example.myProject06.service;
 
 import com.example.myProject06.dto.BoardDTO;
 import com.example.myProject06.entity.Board;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface BoardService {
 
     BoardDTO read(int no);
 
-    List<BoardDTO> getList();
+    Page<BoardDTO> getList(int pageNumber);
 
     void modify(BoardDTO boardDTO);
 
@@ -41,7 +42,4 @@ public interface BoardService {
                 .build();
         return dto;
     }
-
-
-
 }

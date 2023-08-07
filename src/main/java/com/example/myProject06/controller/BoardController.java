@@ -3,11 +3,14 @@ package com.example.myProject06.controller;
 import com.example.myProject06.dto.BoardDTO;
 import com.example.myProject06.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/board")
 @RequiredArgsConstructor
+@Slf4j
 public class BoardController {
 
     private final BoardService boardService;
@@ -22,13 +26,16 @@ public class BoardController {
     //메인화면
     @GetMapping("/main")
     public void main(){
-        System.out.println("main");
     }
 
     @GetMapping("/list")
-    public void list(Model model){
-        List<BoardDTO> list = boardService.getList();
-        model.addAttribute("list", list);
+    public void list(@RequestParam(defaultValue = "0") int page, Model model){
+        Page<BoardDTO> pageNum = boardServiqiqqqqqqqce.getList(page);
+        model.addAttribute("list", pageNum);
+        log.info("전체 페이지 수 : {}",pageNum.getTotalPages());
+        log.info("전체 게시물 수 : {}",pageNum.getTotalElements());
+        log.info("현재 페이지 번호 : {}",pageNum.getNumber() + 1);
+        log.info("페이지에 표시할 게시물 수  : {}",pageNum.getNumberOfElements());
     }
 
     @GetMapping("/register")
@@ -45,8 +52,9 @@ public class BoardController {
     }
 
     @GetMapping("/read")
-    public void read(int no, Model model){
+    public void read(int no, Model model, @RequestParam(defaultValue = "0")int page){
         BoardDTO readDTO = boardService.read(no);
+        model.addAttribute("page",page);
         model.addAttribute("dto", readDTO);
     }
 
