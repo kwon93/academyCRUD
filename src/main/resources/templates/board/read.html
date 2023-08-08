@@ -31,7 +31,7 @@
             <input type="text" class="form-control" name="modDate" th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}"  readonly>
         </div>
 
-        <a th:href="@{/board/modify(no = ${dto.no})}">
+        <a th:href="@{/board/modify(no = ${dto.no},page = ${page})}">
         	<button type="button" class="btn btn-primary">수정</button>
         </a>
 

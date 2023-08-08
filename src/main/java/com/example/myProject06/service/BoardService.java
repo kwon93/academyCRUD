@@ -2,6 +2,7 @@ package com.example.myProject06.service;
 
 import com.example.myProject06.dto.BoardDTO;
 import com.example.myProject06.entity.Board;
+import com.example.myProject06.entity.Member;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -21,12 +22,15 @@ public interface BoardService {
 
     //dto 엔티티를 변환하는 메서드
     default Board dtoToEntity(BoardDTO boardDTO){
+        Member member = Member.builder().id(boardDTO.getWriter()).build();
+
         Board entity = Board.builder()
                 .no(boardDTO.getNo())
                 .title(boardDTO.getTitle())
                 .content(boardDTO.getContent())
-                .writer(boardDTO.getWriter())
+                .writer(member)
                 .build();
+
         return entity;
     }
 
@@ -36,10 +40,11 @@ public interface BoardService {
                 .no(entity.getNo())
                 .title(entity.getTitle())
                 .content(entity.getContent())
-                .writer(entity.getWriter())
+                .writer(entity.getWriter().getId())
                 .regDate(entity.getRegDate())
                 .modDate(entity.getModDate())
                 .build();
         return dto;
     }
+
 }

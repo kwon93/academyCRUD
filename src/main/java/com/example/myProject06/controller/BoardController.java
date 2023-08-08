@@ -30,7 +30,7 @@ public class BoardController {
 
     @GetMapping("/list")
     public void list(@RequestParam(defaultValue = "0") int page, Model model){
-        Page<BoardDTO> pageNum = boardServiqiqqqqqqqce.getList(page);
+        Page<BoardDTO> pageNum = boardService.getList(page);
         model.addAttribute("list", pageNum);
         log.info("전체 페이지 수 : {}",pageNum.getTotalPages());
         log.info("전체 게시물 수 : {}",pageNum.getTotalElements());
@@ -59,8 +59,9 @@ public class BoardController {
     }
 
     @GetMapping("/modify")
-    public void modify(int no, Model model){
+    public void modify(int no, Model model, @RequestParam(defaultValue = "0") int page){
         BoardDTO boardDTO = boardService.read(no);
+        model.addAttribute("page",page);
         model.addAttribute("dto", boardDTO);
     }
 
