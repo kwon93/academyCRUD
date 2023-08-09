@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/member")
+//@RequestMapping("/member")
 public class MemberController {
 
     private final MemberService memberService;
@@ -25,6 +25,9 @@ public class MemberController {
         Page<MemberDTO> list = memberService.getList(page);
         List<MemberDTO> content = list.getContent();
         model.addAttribute("list",list);
-
     }
+
+
+
+
 }
