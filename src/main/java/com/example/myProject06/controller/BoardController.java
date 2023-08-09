@@ -24,9 +24,7 @@ public class BoardController {
     private final BoardService boardService;
 
     //메인화면
-    @GetMapping("/main")
-    public void main(){
-    }
+
 
     @GetMapping("/list")
     public void list(@RequestParam(defaultValue = "0") int page, Model model){

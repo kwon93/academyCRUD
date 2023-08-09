@@ -20,4 +20,16 @@ public interface MemberService {
 
     Page<MemberDTO> getList(int pageNumber);
 
+
+    boolean register(MemberDTO memberDTO);
+
+    default Member memberDtoToEntity(MemberDTO memberDTO){
+        return Member.builder()
+                .id(memberDTO.getId())
+                .name(memberDTO.getName())
+                .password(memberDTO.getPassword())
+                .build();
+    }
+
+    MemberDTO read(String id);
 }

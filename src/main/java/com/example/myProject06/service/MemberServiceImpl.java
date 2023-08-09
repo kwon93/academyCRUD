@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService{
@@ -24,4 +26,31 @@ public class MemberServiceImpl implements MemberService{
         Page<Member> entityPage = memberRepository.findAll(pageable);
         return entityPage.map(entity -> entityToDTO(entity));
     }
+
+    @Override
+    public boolean register(MemberDTO memberDTO) {
+        String getId = memberDTO.getId();
+        MemberDTO getDto = read(getId);
+        if (getDto != null){
+            System.out.println("사용중인 아이디 입니다.");
+            return false;
+        }
+        Member entity = memberDtoToEntity(memberDTO);
+        memberRepository.save(entity);
+        return true;
+    }
+
+    @Override
+    public MemberDTO read(String id) {
+        Optional<Member> result = memberRepository.findById(id);
+        if (result.isPresent()){
+            Member member = result.get();
+            return entityToDTO(member);
+        }else {
+            return null;
+        }
+    }
+
+
+
 }
