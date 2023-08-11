@@ -2,7 +2,9 @@
 <html lang="en">
     <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
         <th:block th:fragment="content">
-            <h1>메인 페이지 입니다.</h1>
+            <h1 th:text="|${id} 님 안녕하세요|"></h1>
+            <b sec:authentication="name"></b><b> 님의 등급은</b><b sec:authentication="principal.authorities"></b> <b>등급 입니다!</b>
+
             <img src="/img/cat.jpg" alt="">
         </th:block>
     </th:block>

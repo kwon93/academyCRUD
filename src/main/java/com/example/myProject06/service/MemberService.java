@@ -14,6 +14,7 @@ public interface MemberService {
                 .password(entity.getPassword())
                 .regDate(entity.getRegDate())
                 .modDate(entity.getModDate())
+                .role(entity.getRole())
                 .build();
         return dtoPage;
     }
@@ -28,8 +29,11 @@ public interface MemberService {
                 .id(memberDTO.getId())
                 .name(memberDTO.getName())
                 .password(memberDTO.getPassword())
+                .role(memberDTO.getRole())
                 .build();
     }
 
     MemberDTO read(String id);
+
+
 }

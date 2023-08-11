@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -36,6 +38,11 @@ public class MemberServiceImpl implements MemberService{
             return false;
         }
         Member entity = memberDtoToEntity(memberDTO);
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashPassword = passwordEncoder.encode(entity.getPassword()); //DTO에 입력된 패스워드를 해쉬암호화 하기
+        entity.setPassword(hashPassword); //해쉬 암호화된 패스워드를 다시 dto password로 set해줌
+
         memberRepository.save(entity);
         return true;
     }
@@ -50,6 +57,8 @@ public class MemberServiceImpl implements MemberService{
             return null;
         }
     }
+
+
 
 
 

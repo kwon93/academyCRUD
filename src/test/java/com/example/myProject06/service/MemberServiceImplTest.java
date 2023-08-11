@@ -99,4 +99,25 @@ class MemberServiceImplTest {
         assertThat(readMember.getId()).isEqualTo(userA);
     }
 
+
+    @Test
+    @DisplayName("패스워스가 암호화되었는지 확인")
+    void test5() throws Exception{
+        //given
+        String userTestId = "TestUser2";
+        String userName = "kwon";
+        String userPW = "1q2w3e4r";
+        MemberDTO testUser = MemberDTO.builder()
+                .id(userTestId)
+                .name(userName)
+                .password(userPW)
+                .role("VIP")
+                .build();
+
+        //when
+        memberService.register(testUser);
+        Member member = memberRepository.findById(userTestId).get();
+        //then
+        assertThat(member.getPassword()).isNotEqualTo(userPW);
+    }
 }

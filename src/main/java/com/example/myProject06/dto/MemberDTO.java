@@ -19,4 +19,6 @@ public class MemberDTO {
     private LocalDateTime regDate;
     private LocalDateTime modDate;
 
+    private String role;
+
 }

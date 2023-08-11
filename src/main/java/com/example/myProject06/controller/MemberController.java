@@ -16,13 +16,13 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/member")
+//@RequestMapping("/member")
 public class MemberController {
 
     private final MemberService memberService;
 
 
-    @GetMapping("/list")
+    @GetMapping("/member/list")
     public void list(@RequestParam(defaultValue = "0")int page, Model model){
         Page<MemberDTO> list = memberService.getList(page);
         List<MemberDTO> content = list.getContent();
@@ -31,20 +31,22 @@ public class MemberController {
     }
 
     @GetMapping("/register")
-    public void register(){}
+    public String  register(){
+        return "/member/register";
+    }
 
     @PostMapping("/register")
     public String registerPost(MemberDTO memberDTO, Model model){
         boolean isSuccess = memberService.register(memberDTO);
         if (isSuccess){
-            return "redirect:/member/list";
+            return "redirect:/";
         }else {
             model.addAttribute("msg","중복된 아이디입니다.");
-            return "/member/register";
+            return "/register";
         }
     }
 
-    @GetMapping("/read")
+    @GetMapping("/member/read")
     public void read(String id, @RequestParam(defaultValue = "0") int page, Model model){
         MemberDTO read = memberService.read(id);
         model.addAttribute("dto",read);

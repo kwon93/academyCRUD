@@ -25,5 +25,7 @@ public class Member extends BaseEntity{
     @Column(length = 100, nullable = false)
     private String name;
 
+    @Column(length = 100, nullable = false)
+    private String role; //사용자 등급 추가
 
 }
